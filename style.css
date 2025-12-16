@@ -1,0 +1,35 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #8b0000;
+}
+.van-khan {
+    white-space: pre-wrap;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fffff0;
+}
+#am-ngay, #am-thang, #am-nam {
+    color: #006400;
+    font-weight: bold;
+    font-style: italic;
+}
+.note {
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+}
