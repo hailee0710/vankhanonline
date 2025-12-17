@@ -12,34 +12,34 @@ body {
     background-color: #f4f4f4;
     color: #333;
     margin: 0;
-    padding: 8px;
+    padding: 4px;
     line-height: 1.5;
     font-size: 16px;
 }
 
 .container {
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
     background: #fff;
-    padding: 10px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 h1 {
     text-align: center;
     color: #8b0000;
     font-size: 1.3em;
-    margin: 5px 0 8px 0;
-    padding: 0;
+    margin: 0;
+    padding: 4px 0;
 }
 
 .van-khan {
     white-space: normal;
     word-wrap: break-word;
-    border: 1px solid #ccc;
-    padding: 8px;
-    background-color: #fffff0;
+    border: none;
+    padding: 4px;
+    background-color: #fff;
     font-size: 0.95em;
     line-height: 1.6;
     text-align: justify;
@@ -57,9 +57,9 @@ h1 {
 .note {
     text-align: center;
     font-style: italic;
-    margin: 8px 0 0 0;
+    margin: 0;
     font-size: 0.9em;
-    padding: 0;
+    padding: 4px 0;
 }
 
 /* Tablet and larger screens */
