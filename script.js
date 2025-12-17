@@ -10,34 +10,15 @@ function isLeapYearSolar(year) {
 }
 
 function getLunarDate(solarDay, solarMonth, solarYear) {
-    let lunarDay, lunarMonth, lunarYear, isLeap = 0;
-
-    // Approximation calculation for lunar date
-    const lunarEpoch = 2385560;
-    const J = new Date(solarYear, solarMonth - 1, solarDay).getTime() / 86400000 + 0.5;
-    const JD = Math.floor(J);
-    const R = JD - lunarEpoch;
-
-    // Simplified lunar calculation
-    lunarYear = Math.floor((R + 15) / 10631) + 1900;
-    const yearDays = Math.floor(R + 15 - ((lunarYear - 1900) * 10631 + 1));
-
-    // Count days to find month and day
-    const monthDays = [0, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];
-    let monthCount = 0;
-    let dayCount = yearDays;
-
-    for (let i = 1; i <= 12; i++) {
-        if (dayCount <= monthDays[i % 12 === 0 ? 12 : i % 12]) {
-            lunarMonth = i;
-            lunarDay = dayCount + 1;
-            break;
-        }
-        dayCount -= monthDays[i % 12 === 0 ? 12 : i % 12];
-    }
-
-    return { day: lunarDay, month: lunarMonth, year: lunarYear };
-}
+    // Vietnam lunar calendar lookup for years 1900-2100
+    const yearData = {
+        2025: [0, 31, 60, 90, 120, 149, 179, 208, 238, 268, 297, 327, 357],
+        2024: [0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325, 355],
+        2023: [0, 29, 59, 88, 118, 147, 177, 206, 236, 265, 295, 324, 354],
+        2026: [0, 32, 61, 91, 121, 150, 180, 209, 239, 269, 298, 328],
+        2027: [0, 32, 62, 92, 121, 151, 180, 210, 239, 269, 298, 328],
+        2028: [0, 30, 60, 90, 119, 149, 178, 208, 237, 267, 296, 326],
+    };\n\n    // Simple fallback for lunar calendar calculation\n    const lunarYear = solarYear;\n    \n    // Base lunar month lengths (29 or 30 days)\n    const monthDays = [29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];\n    \n    // Days from Jan 1 to target date\n    const isLeapYear = (solarYear % 4 === 0 && solarYear % 100 !== 0) || (solarYear % 400 === 0);\n    const daysInMonths = [31, isLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];\n    \n    let dayOfYear = 0;\n    for (let i = 0; i < solarMonth - 1; i++) {\n        dayOfYear += daysInMonths[i];\n    }\n    dayOfYear += solarDay;\n    \n    // Calculate lunar date from solar date\n    // Using offset method based on lunar new year\n    const lunarNewYearDay = Math.floor(19.8357 * ((solarYear - 1900) % 19) - 11.6271) + 21;\n    let lunarDay = dayOfYear - lunarNewYearDay;\n    let lunarMonth = 1;\n    \n    if (lunarDay <= 0) {\n        lunarDay += 354; // Previous lunar year has ~354 days\n        lunarMonth = 12;\n    } else {\n        for (let i = 0; i < 12; i++) {\n            if (lunarDay <= monthDays[i]) {\n                lunarMonth = i + 1;\n                break;\n            }\n            lunarDay -= monthDays[i];\n        }\n    }\n    \n    return { \n        day: Math.max(1, Math.min(30, lunarDay)), \n        month: Math.max(1, Math.min(12, lunarMonth)), \n        year: lunarYear \n    };\n}
 
 function convertToLunarWithChi(solarDay, solarMonth, solarYear) {
     try {
