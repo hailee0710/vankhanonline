@@ -2,34 +2,94 @@ body {
     font-family: 'Times New Roman', Times, serif;
     background-color: #f4f4f4;
     color: #333;
-    line-height: 1.6;
-    margin: 20px;
+    line-height: 1.8;
+    margin: 0;
+    padding: 10px;
 }
+
 .container {
     max-width: 800px;
     margin: auto;
     background: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
     text-align: center;
     color: #8b0000;
+    font-size: 1.8em;
+    margin: 15px 0;
 }
+
 .van-khan {
-    white-space: pre-wrap;
+    white-space: normal;
+    word-wrap: break-word;
     border: 1px solid #ccc;
-    padding: 20px;
+    padding: 15px;
     background-color: #fffff0;
+    font-size: 1.05em;
+    line-height: 1.9;
+    text-align: justify;
 }
-#am-ngay, #am-thang, #am-nam {
+
+#am-ngay,
+#am-thang,
+#am-nam {
     color: #006400;
     font-weight: bold;
     font-style: italic;
 }
+
 .note {
     text-align: center;
     font-style: italic;
     margin-top: 20px;
+    font-size: 0.95em;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px 0;
+    }
+
+    .van-khan {
+        padding: 12px;
+        font-size: 1.1em;
+        line-height: 2;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 3px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.3em;
+        margin: 8px 0;
+    }
+
+    .van-khan {
+        padding: 10px;
+        font-size: 1.05em;
+        line-height: 2;
+    }
 }
