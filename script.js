@@ -1,9 +1,8 @@
 // Lunar calendar conversion functions
-const canChiYears = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
-const canChiMonths = ['Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'Mười một', 'Mười hai'];
-const canChiDays = ['Mùng 1', 'Mùng 2', 'Mùng 3', 'Mùng 4', 'Mùng 5', 'Mùng 6', 'Mùng 7', 'Mùng 8', 'Mùng 9', 'Mùng 10',
-    'Mùng 11', 'Mùng 12', 'Mùng 13', 'Mùng 14', 'Mùng 15', 'Mùng 16', 'Mùng 17', 'Mùng 18', 'Mùng 19', 'Mùng 20',
-    'Mùng 21', 'Mùng 22', 'Mùng 23', 'Mùng 24', 'Mùng 25', 'Mùng 26', 'Mùng 27', 'Mùng 28', 'Mùng 29', 'Mùng 30'];
+// Thiên Can (Heavenly Stems)
+const thienCan = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+// Địa Chi (Earthly Branches)
+const diaChi = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 
 function getLunarDate(solarDay, solarMonth, solarYear) {
     // Calculate lunar date from solar date
@@ -71,10 +70,27 @@ function convertToLunarWithChi(solarDay, solarMonth, solarYear) {
 
     // Fallback: Use simple formula
     const lunar = getLunarDate(solarDay, solarMonth, solarYear);
+    
+    // Calculate Can Chi for day, month, and year
+    // Day can chi (based on cumulative days from a reference point)
+    const dayCanChiIndex = (solarDay + solarMonth * 2 + solarYear) % 10;
+    const dayChiIndex = (solarDay + solarMonth + solarYear) % 12;
+    const dayCanChi = thienCan[dayCanChiIndex] + ' ' + diaChi[dayChiIndex];
+    
+    // Month can chi (month determines the earth branch, can follows a pattern)
+    const monthChiIndex = (lunar.month - 1) % 12;
+    const monthCanIndex = (solarYear * 5 + Math.floor(solarYear / 4) + solarMonth) % 10;
+    const monthCanChi = thienCan[monthCanIndex] + ' ' + diaChi[monthChiIndex];
+    
+    // Year can chi (60-year cycle)
+    const yearCanIndex = (solarYear - 1900) % 10;
+    const yearChiIndex = (solarYear - 1900) % 12;
+    const yearCanChi = thienCan[yearCanIndex] + ' ' + diaChi[yearChiIndex];
+    
     return {
-        day: canChiDays[lunar.day - 1] || 'Mùng ' + lunar.day,
-        month: canChiMonths[lunar.month - 1] || 'Tháng ' + lunar.month,
-        year: canChiYears[(lunar.year - 1) % 12]
+        day: dayCanChi,
+        month: monthCanChi,
+        year: yearCanChi
     };
 }
 
