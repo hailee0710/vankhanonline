@@ -1,6 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initLunarDate() {
     try {
         const today = new Date();
+
+        // Check if library is loaded
+        if (typeof window._calendar === 'undefined') {
+            console.warn("Library not loaded yet, retrying...");
+            setTimeout(initLunarDate, 500);
+            return;
+        }
 
         // Create SolarDate from today's date
         const solar = new window._calendar.SolarDate(today);
@@ -23,4 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('am-thang').textContent = '... (Lỗi hệ thống)';
         document.getElementById('am-nam').textContent = '... (Lỗi hệ thống)';
     }
-});
+}
+
+document.addEventListener('DOMContentLoaded', initLunarDate);
